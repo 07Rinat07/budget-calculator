@@ -1,5 +1,4 @@
-var viewController = (function () {
-
+var viewController = (function() {
     var DOMstrings = {
         inputType: "#input__type",
         inputDescription: "#input__description",
@@ -7,21 +6,21 @@ var viewController = (function () {
         form: "#budget-form",
         incomeContainer: "#income__list",
         expenseContainer: "#expenses__list"
+    };
 
-    }
-
-    function getInput(){
+    function getInput() {
         return {
             type: document.querySelector(DOMstrings.inputType).value,
-            description: document.querySelector(DOMstrings.inputDescription).value,
-            value: document.querySelector(DOMstrings.inputValue).value,
-        }
+            description: document.querySelector(DOMstrings.inputDescription)
+                .value,
+            value: document.querySelector(DOMstrings.inputValue).value
+        };
     }
 
-    function renderListItem(obj, type){
+    function renderListItem(obj, type) {
         var containerElement, html;
 
-        if ( type === "inc") {
+        if (type === "inc") {
             containerElement = DOMstrings.incomeContainer;
             html = `<li id="income-%id%" class="budget-list__item item item--income">
                         <div class="item__title">%description%</div>
@@ -59,18 +58,29 @@ var viewController = (function () {
         newHtml = newHtml.replace("%description%", obj.description);
         newHtml = newHtml.replace("%value%", obj.value);
 
-        document.querySelector(containerElement).insertAdjacentHTML("beforeend", newHtml);
-
+        document
+            .querySelector(containerElement)
+            .insertAdjacentHTML("beforeend", newHtml);
     }
 
+    function clearFields() {
+        var inputDesc, inputVal;
 
+        inputDesc = document.querySelector(DOMstrings.inputDescription);
+        inputVal = document.querySelector(DOMstrings.inputValue);
+
+        inputDesc.value = "";
+        inputDesc.focus();
+        
+        inputVal.value = "";
+    }
 
     return {
         getInput: getInput,
         renderListItem: renderListItem,
-        getDomStrings: function(){
-            return DOMstrings
+        clearFields: clearFields,
+        getDomStrings: function() {
+            return DOMstrings;
         }
-    }
-
+    };
 })();

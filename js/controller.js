@@ -20,7 +20,8 @@ var controller = (function (budgetCtrl, uiCtrl) {
 
         // 3. Добавить "запись" в UI
         uiCtrl.renderListItem(newItem, input.type);
-        generateTestData.init();
+        uiCtrl.clearFields();
+        // generateTestData.init();
 
         // 4. Посчитать бюджет
 
