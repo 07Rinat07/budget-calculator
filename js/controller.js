@@ -1,6 +1,9 @@
 var controller = (function (budgetCtrl, uiCtrl) {
 
-    var DOM = uiCtrl.getDomStrings();
+    var setupEventListeners = function(){
+        var DOM = uiCtrl.getDomStrings();
+        document.querySelector(DOM.form).addEventListener('submit', ctrlAddItem);
+    }
 
     // Функция срабатывающая при отправке формы
     function ctrlAddItem (event){
@@ -21,6 +24,14 @@ var controller = (function (budgetCtrl, uiCtrl) {
 
     }
 
-    document.querySelector(DOM.form).addEventListener('submit', ctrlAddItem);
+    return {
+        init: function(){
+            console.log("App started!");
+            setupEventListeners();
+        }
+    }
+
 
 })(modelController, viewController);
+
+controller.init();
