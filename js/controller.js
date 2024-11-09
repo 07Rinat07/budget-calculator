@@ -14,18 +14,24 @@ var controller = (function (budgetCtrl, uiCtrl) {
         var input = uiCtrl.getInput();
         console.log(input);
 
-        // 2. Добавить полученные данные в модель
-        var newItem = budgetCtrl.addItem(input.type, input.description, input.value);
-        budgetCtrl.test();
+        // Проверка что поля не пустые
+        if (input.description !== "" && !isNaN(input.value) && input.value > 0 ) {
+            // 2. Добавить полученные данные в модель
+            var newItem = budgetCtrl.addItem(input.type, input.description, input.value);
+            budgetCtrl.test();
 
-        // 3. Добавить "запись" в UI
-        uiCtrl.renderListItem(newItem, input.type);
-        uiCtrl.clearFields();
-        // generateTestData.init();
+            // 3. Добавить "запись" в UI
+            uiCtrl.renderListItem(newItem, input.type);
+            uiCtrl.clearFields();
+            generateTestData.init();
 
-        // 4. Посчитать бюджет
+            // 4. Посчитать бюджет
 
-        // 5. Отобразить бюджет в UI
+            // 5. Отобразить бюджет в UI
+
+        } // endIf
+
+
 
     }
 
