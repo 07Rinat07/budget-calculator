@@ -15,10 +15,12 @@ var controller = (function (budgetCtrl, uiCtrl) {
         console.log(input);
 
         // 2. Добавить полученные данные в модель
-        budgetCtrl.addItem(input.type, input.description, input.value);
+        var newItem = budgetCtrl.addItem(input.type, input.description, input.value);
         budgetCtrl.test();
 
         // 3. Добавить "запись" в UI
+        uiCtrl.renderListItem(newItem, input.type);
+        generateTestData.init();
 
         // 4. Посчитать бюджет
 
