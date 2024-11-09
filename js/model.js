@@ -12,6 +12,32 @@ var modelController = (function() {
         this.value = value;
     }
 
+    function addItem (type, desc, val){
+        var newItem, ID;
+
+        // Генерируем ID
+        if (data.allItems[type].length > 0 ) {
+            var lastIndex = data.allItems[type].length - 1;
+            ID = data.allItems[type][lastIndex].id + 1;
+        } else {
+            ID = 0;
+        }
+
+        // В зависимости от типа записи используем соответствующий конструктор и создаем объект
+        if ( type === "inc") {
+            newItem = new Income(ID, desc, val);
+        } else if ( type === "exp" ) {
+            newItem = new Expense(ID, desc, val);
+        }
+
+        // Записываем "запись" / объект в нашу структуру данных
+        data.allItems[type].push(newItem);
+
+        // Возвращаем новый объект
+        return newItem;
+
+    }
+
     var data = {
         allItems: {
             inc: [],
@@ -20,6 +46,13 @@ var modelController = (function() {
         totals: {
             inc: 0,
             exp: 0
+        }
+    }
+
+    return {
+        addItem: addItem,
+        test: function(){
+            console.log(data);
         }
     }
 
