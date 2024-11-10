@@ -5,7 +5,12 @@ var viewController = (function() {
         inputValue: "#input__value",
         form: "#budget-form",
         incomeContainer: "#income__list",
-        expenseContainer: "#expenses__list"
+        expenseContainer: "#expenses__list",
+        budgetLabel: "#budget-value",
+        incomeLabel: "#income-label",
+        expensesLabel: "#expense-label",
+        expensesPercentLabel: "#expense-percent-label"
+
     };
 
     function getInput() {
@@ -71,14 +76,42 @@ var viewController = (function() {
 
         inputDesc.value = "";
         inputDesc.focus();
-        
+
         inputVal.value = "";
+    }
+
+    function updateBudget (obj){
+        /*
+        {
+            budget: data.budget,
+            totalInc: data.totals.inc,
+            totalExp: data.totals.exp,
+            percentage: data.percentage
+        }
+        budgetLabel: "#budget-value",
+        incomeLabel: "#income-label",
+        expensesLabel: "#expense-label",
+        expensesPercentLabel: "#expense-percent-label"
+        */
+
+        document.querySelector(DOMstrings.budgetLabel).textContent = obj.budget;
+        document.querySelector(DOMstrings.incomeLabel).textContent = obj.totalInc;
+        document.querySelector(DOMstrings.expensesLabel).textContent = obj.totalExp;
+
+        if (obj.percentage > 0) {
+            document.querySelector(DOMstrings.expensesPercentLabel).textContent = obj.percentage;
+        } else {
+            document.querySelector(DOMstrings.expensesPercentLabel).textContent = "--";
+        }
+
+
     }
 
     return {
         getInput: getInput,
         renderListItem: renderListItem,
         clearFields: clearFields,
+        updateBudget: updateBudget,
         getDomStrings: function() {
             return DOMstrings;
         }

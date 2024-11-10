@@ -8,11 +8,9 @@ var controller = (function (budgetCtrl, uiCtrl) {
     // Функция срабатывающая при отправке формы
     function ctrlAddItem (event){
         event.preventDefault();
-        console.log("Fired!");
 
         // 1. Получить данные из формы
         var input = uiCtrl.getInput();
-        console.log(input);
 
         // Проверка что поля не пустые
         if (input.description !== "" && !isNaN(input.value) && input.value > 0 ) {
@@ -40,8 +38,11 @@ var controller = (function (budgetCtrl, uiCtrl) {
         budgetCtrl.calculateBudget();
 
         // 2. Получить расчитанный бюджет из модели
+        budgetObj = budgetCtrl.getBudget();
+        console.log("updateBudget -> budgetObj", budgetObj)
 
         // 3. Отобразить бюджет в Шаблоне
+        uiCtrl.updateBudget(budgetObj);
 
     }
 
@@ -49,6 +50,12 @@ var controller = (function (budgetCtrl, uiCtrl) {
         init: function(){
             console.log("App started!");
             setupEventListeners();
+            uiCtrl.updateBudget({
+                budget: 0,
+                totalInc: 0,
+                totalExp: 0,
+                percentage: 0
+            });
         }
     }
 
