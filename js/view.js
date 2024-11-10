@@ -107,11 +107,16 @@ var viewController = (function() {
 
     }
 
+    function deleteListItem(itemID){
+        document.getElementById(itemID).remove();
+    }
+
     return {
         getInput: getInput,
         renderListItem: renderListItem,
         clearFields: clearFields,
         updateBudget: updateBudget,
+        deleteListItem: deleteListItem,
         getDomStrings: function() {
             return DOMstrings;
         }

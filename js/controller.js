@@ -51,6 +51,10 @@ var controller = (function (budgetCtrl, uiCtrl) {
             budgetCtrl.deleteItem(type, ID);
 
             // Удаляем запись из шаблона
+            uiCtrl.deleteListItem(itemID);
+
+            // Посчитать бюджет
+            updateBudget();
 
         }
 
