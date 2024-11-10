@@ -38,7 +38,32 @@ var modelController = (function() {
 
     }
 
+    function deleteItem (type, id){
 
+        // inc, id = 4
+        // data.allItems[inc][item]
+        // ids = [0, 2, 4, 5, 10]
+        // index = 2
+
+        // 1. Найти запись по ID в массиве с доходами или расходами.
+        var ids = data.allItems[type].map(function(item){
+            return item.id
+        });
+
+        console.log("deleteItem -> ids", ids);
+
+        // Находим индекс записи
+        index = ids.indexOf(id);
+        console.log("deleteItem -> index", index)
+
+        // 2. Удалить найденную запись из массива по индексу
+        if ( index !== -1) {
+            data.allItems[type].splice(index, 1);
+        }
+
+        console.log("deleteItem -> data.allItems", data.allItems)
+
+    }
 
     function calculateTotalSum(type){
         var sum = 0;
@@ -96,6 +121,7 @@ var modelController = (function() {
         addItem: addItem,
         calculateBudget: calculateBudget,
         getBudget: getBudget,
+        deleteItem: deleteItem,
         test: function(){
             console.log(data);
         }

@@ -48,6 +48,7 @@ var controller = (function (budgetCtrl, uiCtrl) {
             ID = parseInt(splitID[1]);
 
             // Удаляем запись из модели
+            budgetCtrl.deleteItem(type, ID);
 
             // Удаляем запись из шаблона
 
