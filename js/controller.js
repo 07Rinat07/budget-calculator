@@ -26,12 +26,22 @@ var controller = (function (budgetCtrl, uiCtrl) {
             generateTestData.init();
 
             // 4. Посчитать бюджет
-
-            // 5. Отобразить бюджет в UI
+            updateBudget();
 
         } // endIf
 
 
+
+
+    }
+
+    function updateBudget (){
+        // 1. Расчитать бюджет в модели
+        budgetCtrl.calculateBudget();
+
+        // 2. Получить расчитанный бюджет из модели
+
+        // 3. Отобразить бюджет в Шаблоне
 
     }
 
