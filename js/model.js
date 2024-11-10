@@ -38,6 +38,8 @@ var modelController = (function() {
 
     }
 
+
+
     function calculateTotalSum(type){
         var sum = 0;
 

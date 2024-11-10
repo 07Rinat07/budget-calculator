@@ -9,8 +9,8 @@ var viewController = (function() {
         budgetLabel: "#budget-value",
         incomeLabel: "#income-label",
         expensesLabel: "#expense-label",
-        expensesPercentLabel: "#expense-percent-label"
-
+        expensesPercentLabel: "#expense-percent-label",
+        budgetTable: "#budget-table",
     };
 
     function getInput() {
@@ -27,7 +27,7 @@ var viewController = (function() {
 
         if (type === "inc") {
             containerElement = DOMstrings.incomeContainer;
-            html = `<li id="income-%id%" class="budget-list__item item item--income">
+            html = `<li id="inc-%id%" class="budget-list__item item item--income">
                         <div class="item__title">%description%</div>
                         <div class="item__right">
                             <div class="item__amount">%value%</div>
@@ -41,7 +41,7 @@ var viewController = (function() {
                     </li>`;
         } else {
             containerElement = DOMstrings.expenseContainer;
-            html = `<li id="expense-%id%" class="budget-list__item item item--expense">
+            html = `<li id="exp-%id%" class="budget-list__item item item--expense">
                         <div class="item__title">%description%</div>
                         <div class="item__right">
                             <div class="item__amount">

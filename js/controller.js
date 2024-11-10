@@ -3,6 +3,9 @@ var controller = (function (budgetCtrl, uiCtrl) {
     var setupEventListeners = function(){
         var DOM = uiCtrl.getDomStrings();
         document.querySelector(DOM.form).addEventListener('submit', ctrlAddItem);
+
+        // Клик по таблице с доходами и расходами
+        document.querySelector(DOM.budgetTable).addEventListener("click", ctrlDeleteItem)
     }
 
     // Функция срабатывающая при отправке формы
@@ -30,6 +33,25 @@ var controller = (function (budgetCtrl, uiCtrl) {
 
 
 
+
+    }
+
+    function ctrlDeleteItem(event){
+        var itemID, splitID, type, ID;
+
+        if (event.target.closest(".item__remove")) {
+
+            // Находим ID записи которую надо удалить
+            itemID = event.target.closest("li.budget-list__item").id; // inc-0
+            splitID = itemID.split("-"); // "inc-0" => ["inc", "0"]
+            type = splitID[0];
+            ID = parseInt(splitID[1]);
+
+            // Удаляем запись из модели
+
+            // Удаляем запись из шаблона
+
+        }
 
     }
 
