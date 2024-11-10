@@ -10,6 +10,19 @@ var modelController = (function() {
         this.id = id;
         this.description = description;
         this.value = value;
+        this.percentage = -1;
+    }
+
+    Expense.prototype.calcPercentage = function(totalIncome){
+        if (totalIncome > 0) {
+            this.percentage = Math.round((this.value / totalIncome) * 100);
+        } else {
+            this.percentage = -1;
+        }
+    }
+
+    Expense.prototype.getPercentage = function(){
+        return this.percentage;
     }
 
     function addItem (type, desc, val){
@@ -104,6 +117,22 @@ var modelController = (function() {
         }
     }
 
+    function calculatePercentages(){
+        data.allItems.exp.forEach(function(item){
+            item.calcPercentage(data.totals.inc);
+        });
+    }
+
+    function getAllIdsAndPercentages (){
+        // [[0, 15], [1, 25], [2, 50]]
+
+        var allPerc = data.allItems.exp.map(function(item){
+            return [item.id, item.getPercentage()];
+        });
+
+        return allPerc;
+    }
+
     var data = {
         allItems: {
             inc: [],
@@ -122,6 +151,8 @@ var modelController = (function() {
         calculateBudget: calculateBudget,
         getBudget: getBudget,
         deleteItem: deleteItem,
+        calculatePercentages: calculatePercentages,
+        getAllIdsAndPercentages: getAllIdsAndPercentages,
         test: function(){
             console.log(data);
         }
