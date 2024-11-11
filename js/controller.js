@@ -23,6 +23,7 @@ var controller = (function (budgetCtrl, uiCtrl) {
         console.log("updatePercentages -> idsAndPercents", idsAndPercents)
 
         // 3. Обновить UI с новыми процентами
+        uiCtrl.updateItemsPercentages(idsAndPercents);
 
 
     }
