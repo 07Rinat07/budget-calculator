@@ -11,6 +11,8 @@ var viewController = (function() {
         expensesLabel: "#expense-label",
         expensesPercentLabel: "#expense-percent-label",
         budgetTable: "#budget-table",
+        monthLabel: "#month",
+        yearLabel: "#year"
     };
 
     function getInput() {
@@ -225,6 +227,28 @@ var viewController = (function() {
         })
     }
 
+    function displayMonth(){
+        var now, year, month, monthArr;
+
+        now = new Date();
+        year = now.getFullYear(); // 2020
+        month = now.getMonth(); // Апрель => 3
+
+        monthArr = [
+            'Январь', 'Февраль', 'Март',
+            'Апрель', 'Май', 'Июнь',
+            'Июль', 'Август', 'Сентябрь',
+            'Октябрь', 'Ноябрь', 'Декабрь'
+        ];
+
+        month = monthArr[month];
+
+        document.querySelector(DOMstrings.monthLabel).innerText = month;
+        document.querySelector(DOMstrings.yearLabel).innerText = year;
+
+
+    }
+
 
     return {
         getInput: getInput,
@@ -233,6 +257,7 @@ var viewController = (function() {
         updateBudget: updateBudget,
         deleteListItem: deleteListItem,
         updateItemsPercentages: updateItemsPercentages,
+        displayMonth: displayMonth,
         getDomStrings: function() {
             return DOMstrings;
         }
