@@ -22,6 +22,85 @@ var viewController = (function() {
         };
     }
 
+    function formatNumber(num, type){
+        var numSplit, int, dec, newInt, resultNumber;
+
+        /*
+        - или - перед числом в зависимости от типа
+        два знакао после точки, десятые и сотые
+        50 => 50.00
+        87.5649874132 => 87.56
+        */
+        // Убираем знак минус у отрицательных чисел
+        num = Math.abs(num); // Math.abs(-10) = 10
+        // Приводим к 2-м цифрам после точки
+        num = num.toFixed(2); // (2.45678).toFixed(2) = 2.46      (2).toFixed(2) = 2.00
+
+        /*
+        123000 => 123,000.00
+        123,456,789 => 123,456,789.00
+        12,345
+        */
+
+        numSplit = num.split("."); // 45.78 => [45, 78]
+        // Целая часть
+        int = numSplit[0]; // 45
+        // Десятые, от исходной строки
+        dec = numSplit[1]; // 78
+
+        // Расставляем запятые
+        // Исходя из длинны числа делим его на части по 3 цифры
+        // Начиная с правой стороны проставляем запятые после каждого третьего числа
+        // 123456789 => 123,456,789
+        // Если длинна номера больше чем 3 цифры значит надо ставить запятые
+        if ( int.length > 3) {
+            newInt = "";
+
+            //123456789
+            console.log("formatNumber -> int.length", int.length)
+
+            for( var i = 0; i < int.length / 3; i++  ){
+                console.log("formatNumber -> i", i);
+
+                // Формирую новую строку с номером
+                newInt =
+                // Добавляю запятую каждые 3 числа
+                "," +
+                // Вырезанный кусок из исходной строки
+                int.substring(int.length - 3 * (i + 1), int.length - 3 * i) +
+                // Конец строки, правая часть
+                newInt;
+
+                console.log("formatNumber -> newInt", newInt)
+            }
+            console.log("formatNumber -> newInt", newInt)
+
+            // Убираем запятую в начале, если она есть
+            if (newInt[0] === ",") {
+                newInt = newInt.substring(1);
+            }
+
+
+
+        // Если исходное число равно нулю, то в новую строку записываем ноль.
+        } else if ( int === "0") {
+            newInt = "0";
+        // Если исходное целое число имеет 3 и менее символов
+        } else {
+            newInt = int;
+        }
+
+        resultNumber = newInt + "." + dec;
+
+        if (type === "exp") {
+            resultNumber = "- " + resultNumber;
+        } else if (type === "inc" ) {
+            resultNumber = "+ " + resultNumber;
+        }
+
+        return resultNumber;
+    }
+
     function renderListItem(obj, type) {
         var containerElement, html;
 
@@ -61,7 +140,7 @@ var viewController = (function() {
 
         newHtml = html.replace("%id%", obj.id);
         newHtml = newHtml.replace("%description%", obj.description);
-        newHtml = newHtml.replace("%value%", obj.value);
+        newHtml = newHtml.replace("%value%", formatNumber(obj.value, type));
 
         document
             .querySelector(containerElement)
@@ -81,6 +160,7 @@ var viewController = (function() {
     }
 
     function updateBudget (obj){
+        var type;
         /*
         {
             budget: data.budget,
@@ -94,9 +174,15 @@ var viewController = (function() {
         expensesPercentLabel: "#expense-percent-label"
         */
 
-        document.querySelector(DOMstrings.budgetLabel).textContent = obj.budget;
-        document.querySelector(DOMstrings.incomeLabel).textContent = obj.totalInc;
-        document.querySelector(DOMstrings.expensesLabel).textContent = obj.totalExp;
+        if (obj.budget > 0) {
+            type = "inc"
+        } else {
+            type = "exp";
+        }
+
+        document.querySelector(DOMstrings.budgetLabel).textContent = formatNumber(obj.budget, type);
+        document.querySelector(DOMstrings.incomeLabel).textContent = formatNumber(obj.totalInc, "inc");
+        document.querySelector(DOMstrings.expensesLabel).textContent = formatNumber(obj.totalExp, "exp");
 
         if (obj.percentage > 0) {
             document.querySelector(DOMstrings.expensesPercentLabel).textContent = obj.percentage;
@@ -138,6 +224,7 @@ var viewController = (function() {
 
         })
     }
+
 
     return {
         getInput: getInput,
